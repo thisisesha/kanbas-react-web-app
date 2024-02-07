@@ -14,3 +14,8 @@
    display: inline;
    align-items: center;
 }
+
+.wd-button {
+    color: black;
+    margin-left: 5px;
+}
