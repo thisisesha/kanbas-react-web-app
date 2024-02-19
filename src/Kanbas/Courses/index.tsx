@@ -12,6 +12,8 @@ import CourseNavigation from "./Navigation";
 import "./index.css";
 import Modules from "./Modules";
 import StudentViewButton from "./StudentView";
+import Home from "./Home";
+import Assignments from "./Assignments";
 function Courses() {
   const { courseId } = useParams();
   const { pathname } = useLocation();
@@ -54,10 +56,10 @@ function Courses() {
         >
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<h1>Home</h1>} />
+            <Route path="Home" element={<Home/>} />
             <Route path="Modules" element={<Modules />} />
             <Route path="Piazza" element={<h1>Piazza</h1>} />
-            <Route path="Assignments" element={<h1>Assignments</h1>} />
+            <Route path="Assignments" element={<Assignments/>} />
             <Route
               path="Assignments/:assignmentId"
               element={<h1>Assignment Editor</h1>}
