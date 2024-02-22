@@ -17,7 +17,7 @@ function Assignments() {
   );
   return (
     <>
-      <div className="col me-2">
+      <div className="col me-3">
         <div className="row wd-margin-top">
           <div className="float-end wd-margin-right">
             <div className="wd-button float-end">

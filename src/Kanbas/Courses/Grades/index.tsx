@@ -8,7 +8,7 @@ function Grades() {
   const es = enrollments.filter((enrollment) => enrollment.course === courseId);
 
   return (
-    <div className="col">
+    <div className="col me-3">
       <div className="row">
         <div className="float-end me-5">
           <div className="wd-button float-end">

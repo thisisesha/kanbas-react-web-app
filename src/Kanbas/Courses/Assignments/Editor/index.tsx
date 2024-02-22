@@ -12,7 +12,7 @@ function AssignmentEditor() {
     navigate(`/Kanbas/Courses/${courseId}/Assignments`);
   };
   return (
-    <div>
+    <div className="me-3">
       <h2>Assignment Name</h2>
       <input value={assignment?.title}
              className="form-control mb-2" />
