@@ -1,39 +1,73 @@
-import React from "react";
 import {
   FaCheckCircle,
   FaEllipsisV,
-  FaPencilAlt,
   FaPlus,
   FaPlusCircle,
-  FaEdit
+  FaEdit,
 } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
-import { assignments } from "../../Database";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { cancelAssignmentUpdate, deleteAssignment, selectAssignment } from "./assignmentsReducer";
+import { KanbasState } from "../../store";
+
 function Assignments() {
   const { courseId } = useParams();
-  const assignmentList = assignments.filter(
-    (assignment) => assignment.course === courseId
+  const assignment = useSelector(
+    (state: KanbasState) => state.assignmentsReducer.assignment
   );
+  const assignments = useSelector(
+    (state: KanbasState) => state.assignmentsReducer.assignments
+  );
+  console.log(assignments);
+  const assignmentList = assignments.filter((assignment) => assignment.course === courseId);
+  console.log(assignmentList);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const navigateToAddAssignemnt = () => {
+    dispatch(cancelAssignmentUpdate());
+    navigate(`/Kanbas/Courses/${courseId}/Assignments/Editor`);
+  };
+
+  const handleDelete = () => {
+    const result = window.confirm(
+      "Are you sure you want to delete this Assignment?"
+    );
+    if (result) {
+      console.log("Yes");
+      return true;
+    } else {
+      console.log("No");
+      return false;
+    }
+  };
   return (
     <>
       <div className="col me-3">
         <div className="row wd-margin-top">
           <div className="float-end wd-margin-right">
             <div className="wd-button float-end">
-              <a className="btn btn-secondary btn-sm" role="button" style={{"backgroundColor":"lightgray"}}>
+              <a
+                className="btn btn-secondary btn-sm"
+                role="button"
+                style={{ backgroundColor: "lightgray" }}
+              >
                 <FaEllipsisV />
               </a>
             </div>
             <div className="wd-button float-end">
-              <Button variant="danger btn-sm">
+            <Button variant="danger btn-sm" onClick={navigateToAddAssignemnt}>
                 <FaPlus className="me-1" />
                 Assignment
               </Button>{" "}
             </div>
 
             <div className="wd-button float-end">
-              <Button variant="secondary btn-sm" style={{"backgroundColor":"lightgray"}}>
+              <Button
+                variant="secondary btn-sm"
+                style={{ backgroundColor: "lightgray" }}
+              >
                 <FaPlus className="me-1" />
                 Group
               </Button>{" "}
@@ -85,10 +119,10 @@ function Assignments() {
                       <FaEllipsisV
                         style={{ verticalAlign: "middle", marginRight: "10px" }}
                       />
-                      <FaEdit style={{"color":"green"}} />
+                      <FaEdit style={{ color: "green" }} />
                     </div>
                     <div className="col wd-fg-color-gray ps-0 ms-2">
-                      <Link
+                    <Link onClick={(e)=>dispatch(selectAssignment(assignment))}
                         style={{ color: "green", textDecoration: "none" }}
                         className="fw-bold ps-0"
                         to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`}
@@ -98,12 +132,27 @@ function Assignments() {
                       <br />
                       {assignment.description} |
                       <br />
-                      <b>Due</b> {assignment.dueDateTime} | 100 points
+                      <b>Due</b> {assignment.dueDateTime} | {assignment.points}
                     </div>
                     <div
                       className="col-auto"
                       style={{ margin: "auto", display: "flex" }}
                     >
+                      <button
+                        className="btn m-0 pt-0 pb-0 me-1 btn-danger btn-sm"
+                        onClick={() => {
+                          // handleDelete()
+                          //   ? dispatch(deleteAssignment(assignment._id))
+                          //   : navigate(
+                          //       `/Kanbas/Courses/${courseId}/Assignments`
+                          //     );
+                          if (handleDelete()) {
+                            dispatch(deleteAssignment(assignment._id))
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
                       <FaCheckCircle style={{ color: "green" }} />
                       <FaEllipsisV style={{ verticalAlign: "middle" }} />
                     </div>
