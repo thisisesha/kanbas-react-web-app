@@ -46,7 +46,7 @@ function Courses({ course2 }: { course2: any[]; }) {
                   }}
                   to={`/Kanbas/Courses/${courseId}/Home`}
                 >
-                   {course?._id}{" "}
+                   {course?.number}{" "}
                 </Link>
               </li>
               {!isAssignmentScreen ? (
