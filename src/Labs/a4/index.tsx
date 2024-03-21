@@ -13,6 +13,7 @@ import HelloRedux from "./ReduxExamples/HelloRedux";
 import CounterRedux from "./ReduxExamples/CounterRedux";
 import AddRedux from "./ReduxExamples/AddRedux";
 import TodoList from "./ReduxExamples/todos/TodoList";
+import DateStateVariable from "./DateStateVariable";
 
 const Assignment4 = () => {
     function sayHello() {
@@ -29,6 +30,7 @@ const Assignment4 = () => {
       <Counter/>
       <BooleanStateVariables/>
       <StringStateVariables/>
+      <DateStateVariable/>
       <ObjectStateVariable/>
       <ArrayStateVariable/>
       <ParentStateComponent/>
