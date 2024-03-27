@@ -1,0 +1,37 @@
+.wd-mainGrade-class {
+    width: 100%;
+  }
+  
+  .wd-button {
+    color: black;
+    background-color: rgb(223, 222, 222);
+    margin-left: 5px;
+  }
+  
+  .wd-text-center {
+    text-align: center;
+  }
+  .table.wd-table-red {
+    color: red;
+  }
+  .table td {
+    text-align: center;
+  }
+  .form-control.wd-input-width {
+    width: 45;
+    padding: 0%;
+    text-align: center;
+    display: inline;
+    align-items: center;
+  }
+  
+  .wd-top-bar > a {
+    text-decoration: none;
+    width: 100%;
+    color: #ff7070;
+  }
+  
+  .wd-top-bar-text > a {
+    text-decoration: none;
+    color: black;
+  }
