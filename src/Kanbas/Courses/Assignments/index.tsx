@@ -8,8 +8,10 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { cancelAssignmentUpdate, deleteAssignment, selectAssignment } from "./assignmentsReducer";
+import { cancelAssignmentUpdate, deleteAssignment, selectAssignment, setAssignments } from "./assignmentsReducer";
 import { KanbasState } from "../../store";
+import * as service from "../Assignments/service";
+import { useEffect } from "react";
 
 function Assignments() {
   const { courseId } = useParams();
@@ -24,6 +26,12 @@ function Assignments() {
   console.log(assignmentList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    service.findAssignmentsForCourse(courseId).then((assignments) =>
+      dispatch(setAssignments(assignments))
+    );
+  }, [courseId, dispatch]);
 
   const navigateToAddAssignemnt = () => {
     dispatch(cancelAssignmentUpdate());
@@ -41,6 +49,13 @@ function Assignments() {
       console.log("No");
       return false;
     }
+  };
+
+  const handleDeleteAssignment = (assignmentId: string) => {
+    service.deleteAssignment(assignmentId).then((status) => {
+      dispatch(deleteAssignment(assignmentId));
+    });
+
   };
   return (
     <>
@@ -147,7 +162,7 @@ function Assignments() {
                           //       `/Kanbas/Courses/${courseId}/Assignments`
                           //     );
                           if (handleDelete()) {
-                            dispatch(deleteAssignment(assignment._id))
+                            handleDeleteAssignment(assignment._id);
                           }
                         }}
                       >

@@ -9,19 +9,13 @@ import {
 } from "../assignmentsReducer";
 import { KanbasState } from "../../../store";
 import { cancelAssignmentUpdate } from "../assignmentsReducer";
+import * as service from "../../Assignments/service";
 
 function AssignmentEditor() {
   const { assignmentId, courseId } = useParams();
   const isAddNew = assignmentId === "Editor";
   const navigate = useNavigate();
-  const handleSave = () => {
-    if (isAddNew) {
-      handleAddingNew();
-    } else {
-      dispatch(updateAssignment(assignment));
-    }
-    navigate(`/Kanbas/Courses/${courseId}/Assignments`);
-  };
+  
 
   const dispatch = useDispatch();
   const assignment = useSelector(
@@ -40,9 +34,31 @@ function AssignmentEditor() {
   //     }
   // }, [dispatch, assignmentId]);
 
-  const handleAddingNew = () => {
-    dispatch(addAssignment({ ...assignment, course: courseId }));
+  const handleSave = () => {
+    if (isAddNew) {
+      handleAddingNew();
+    } else {
+      handleUpdateAssignment();
+    }
+    navigate(`/Kanbas/Courses/${courseId}/Assignments`);
   };
+
+  const handleAddingNew = () => {
+    service.createAssignment(courseId, assignment).then((assignment) => {
+      dispatch(addAssignment(assignment));
+    });
+  };
+
+    const handleUpdateAssignment = async () => {
+      const status = await service.updateAssignment(assignment);
+      dispatch(updateAssignment(assignment));
+    };
+
+    const handleCancel = () => {
+      dispatch(cancelAssignmentUpdate(assignment));
+      navigate(`/Kanbas/Courses/${courseId}/Assignments`);
+    };
+
   return (
     <div className="me-3">
       <h2>Assignment Name</h2>
