@@ -16,19 +16,20 @@ export default function Profile() {
   const fetchProfile = async () => {
     const account = await client.profile();
     console.log(account);
-    // if (account !== null) {
-    //   account.dob = new Date(account.dob).toISOString().split("T")[0];
-    // }
+    if (account !== null && account.dob && account.dob !== "") {
+      account.dob = new Date(account.dob).toISOString().split("T")[0];
+    }
     setProfile(account);
-  };
-  const signout = async () => {
-    await client.signout();
-    navigate("/Kanbas/Account/Signin");
   };
 
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  const signout = async () => {
+    await client.signout();
+    navigate("/Kanbas/Account/Signin");
+  };
 
   const save = async () => {
     await client.updateUser(profile);
