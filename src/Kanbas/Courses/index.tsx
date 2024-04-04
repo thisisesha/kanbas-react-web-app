@@ -27,7 +27,7 @@ function Courses() {
   const [slash, kanbas, cour, id, screen, assignment] = pathname.split("/");
   const isAssignmentScreen = assignment ? true : false;
 
-  const COURSES_API = `${API_BASE}api/courses`;
+  const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: "" });
   const findCourseById = async (courseId?: string) => {
     const response = await axios.get(
