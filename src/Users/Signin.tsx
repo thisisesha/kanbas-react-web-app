@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
 export default function Signin() {
@@ -37,10 +37,24 @@ export default function Signin() {
           setCredentials({ ...credentials, password: e.target.value })
         }
       />
-      <button className="btn btn-primary ms-2" onClick={signin}>
+      <button className="btn btn-primary ms-2" 
+      style={{ width: "100px" }}
+      onClick={signin}>
         {" "}
         Signin{" "}
       </button>
+        <br></br>
+        <br></br>
+          Don't have an account?{" "}
+          <br></br>
+          <Link
+            to="/Kanbas/Account/Signup"
+            className="btn btn-primary ms-2"
+            style={{ width: "100px" }}
+          >
+            {" "}
+            Sign Up{" "}
+          </Link>
     </div>
   );
 }
