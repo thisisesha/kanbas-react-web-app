@@ -2,13 +2,35 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { courses } from "../Database";
 
-function Dashboard(
-  { course, course1, setCourse1, addNewCourse,
-    deleteCourse, updateCourse }: {
-    course: any[]; course1: any; setCourse1: (course: any) => void;
-    addNewCourse: () => void; deleteCourse: (course: any) => void;
-    updateCourse: () => void; }
-) {
+function Dashboard({
+  course,
+  course1,
+  setCourse1,
+  addNewCourse,
+  deleteCourse,
+  updateCourse,
+}: {
+  course: any[];
+  course1: any;
+  setCourse1: (course: any) => void;
+  addNewCourse: () => void;
+  deleteCourse: (course: any) => void;
+  updateCourse: () => void;
+}) {
+  const handleCourseUpdate = (course: any) => {
+    if (course !== null) {
+      console.log("hi");
+      if (course.startDate && course.startDate !== "") {
+        course.startDate = new Date(course.startDate)
+          .toISOString()
+          .split("T")[0];
+      }
+      if (course.endDate && course.endDate !== "") {
+        course.endDate = new Date(course.endDate).toISOString().split("T")[0];
+      }
+    }
+    setCourse1(course);
+  };
   return (
     <div className="p-4">
       <h1>Dashboard</h1> <hr />
@@ -35,25 +57,29 @@ function Dashboard(
         type="date"
         onChange={(e) => setCourse1({ ...course1, endDate: e.target.value })}
       />
-      <button 
-      className="btn btn-primary btn-md me-1"
-      style={{
-        //width: "50px",
-        backgroundColor: "red",
-        borderRadius: "5px",
-      }}
-      onClick={addNewCourse}>Add</button>
-      <button 
-      className="btn btn-primary btn-md me-1"
-      style={{
-        //width: "50px",
-       // backgroundColor: "blue",
-        borderRadius: "5px",
-      }}
-      onClick={updateCourse} >
+      <button
+        className="btn btn-primary btn-md me-1"
+        style={{
+          //width: "50px",
+          backgroundColor: "red",
+          borderRadius: "5px",
+        }}
+        onClick={addNewCourse}
+      >
+        Add
+      </button>
+      <button
+        className="btn btn-primary btn-md me-1"
+        style={{
+          //width: "50px",
+          // backgroundColor: "blue",
+          borderRadius: "5px",
+        }}
+        onClick={updateCourse}
+      >
         Update
       </button>
-      <br/>
+      <br />
       <br></br>
       <h2>Published Courses ({course.length})</h2> <hr />
       <div className="row">
@@ -78,26 +104,27 @@ function Dashboard(
                   >
                     {course.name}{" "}
                     <button
-                    className="btn btn-primary btn-sm me-1"
-                    style={{
-                      //width: "50px",
-                      backgroundColor: "green",
-                      borderRadius: "5px",
-                    }}
+                      className="btn btn-primary btn-sm me-1"
+                      style={{
+                        //width: "50px",
+                        backgroundColor: "green",
+                        borderRadius: "5px",
+                      }}
                       onClick={(event) => {
                         event.preventDefault();
-                        setCourse1(course);
+                        //setCourse1(course);
+                        handleCourseUpdate(course);
                       }}
                     >
                       Edit
                     </button>
                     <button
-                    className="btn btn-primary btn-sm me-1"
-                    style={{
-                      //width: "50px",
-                      backgroundColor: "red",
-                      borderRadius: "5px",
-                    }}
+                      className="btn btn-primary btn-sm me-1"
+                      style={{
+                        //width: "50px",
+                        backgroundColor: "red",
+                        borderRadius: "5px",
+                      }}
                       onClick={(event) => {
                         event.preventDefault();
                         deleteCourse(course._id);
