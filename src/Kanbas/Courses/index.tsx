@@ -23,12 +23,8 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 
 function Courses() {
   const { courseId } = useParams();
-  const { pathname } = useLocation();
-  const [slash, kanbas, cour, id, screen, assignment] = pathname.split("/");
-  const isAssignmentScreen = assignment ? true : false;
-
   const COURSES_API = `${API_BASE}/api/courses`;
-  const [course, setCourse] = useState<any>({ _id: "" });
+  const [course, setCourse] = useState<any>({ _id: "", number: "" });
   const findCourseById = async (courseId?: string) => {
     const response = await axios.get(
       `${COURSES_API}/${courseId}`
@@ -39,6 +35,10 @@ function Courses() {
   useEffect(() => {
     findCourseById(courseId);
   }, [courseId]);
+
+  const { pathname } = useLocation();
+  const [slash, kanbas, cour, id, screen, assignment] = pathname.split("/");
+  const isAssignmentScreen = assignment ? true : false;
 
   const isStudentView = (screen === 'Home') || (screen === 'Modules')
   return (

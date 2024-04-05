@@ -22,7 +22,13 @@ function Kanbas() {
     image: "reactjs.png",
   });
   const COURSES_API = `${API_BASE}/api/courses`;
+  const addNewCourse = async () => {
+    const response = await axios.post(COURSES_API, course1);
+    setCourses([...course, response.data]);
+  };
+
   const findAllCourses = async () => {
+    console.log(COURSES_API);
     const response = await axios.get(COURSES_API);
     setCourses(response.data);
   };
@@ -30,32 +36,20 @@ function Kanbas() {
     findAllCourses();
   }, []);
 
+  const deleteCourse = async (courseId: string) => {
+    const response = await axios.delete(`${COURSES_API}/${courseId}`);
+    setCourses(course.filter((course1) => course1._id !== courseId));
+  };
   const updateCourse = async () => {
-    const response = await axios.put(
-      `${COURSES_API}/${course1._id}`,
-      course
-    );
+    const response = await axios.put(`${COURSES_API}/${course1._id}`, course1);
     setCourses(
       course.map((c) => {
         if (c._id === course1._id) {
           return course1;
-        } else {
-          return c;
         }
+        return c;
       })
     );
-  };
-
-  const addNewCourse = async () => {
-    const response = await axios.post(COURSES_API, course1);
-    setCourses([...course, response.data ]);
-  };
-  const deleteCourse = async (courseId: string) => {
-    const response = await axios.delete(
-      `${COURSES_API}/${courseId}`
-    );
-    setCourses(course.filter(
-      (c) => c._id !== courseId));
   };
 
 
