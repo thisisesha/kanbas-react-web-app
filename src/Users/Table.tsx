@@ -94,16 +94,19 @@ export default function UserTable() {
             <td>
               <input
                 value={user.password}
+                placeholder="Password"
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
               <input
                 value={user.username}
+                placeholder="Username"
                 onChange={(e) => setUser({ ...user, username: e.target.value })}
               />
             </td>
             <td>
               <input
                 value={user.firstName}
+                placeholder="First Name"
                 onChange={(e) =>
                   setUser({ ...user, firstName: e.target.value })
                 }
@@ -112,6 +115,7 @@ export default function UserTable() {
             <td>
               <input
                 value={user.lastName}
+                placeholder="Last Name"
                 onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               />
             </td>
@@ -131,7 +135,9 @@ export default function UserTable() {
                 onClick={updateUser}
                 className="me-2 text-success fs-1 text"
               />
-              <BsPlusCircleFill onClick={createUser} />
+              <BsPlusCircleFill onClick={createUser}
+              className="me-2 text-success fs-1 text"
+              style={{ color: "green" }} />
             </td>
           </tr>
         </thead>
@@ -143,10 +149,10 @@ export default function UserTable() {
               <td>{user.lastName}</td>
               <td>{user.role}</td>
               <td>
-                <button onClick={() => deleteUser(user)}>
-                  <BsTrash3Fill />
+                <button className="btn btn-danger me-2 ms-2" onClick={() => deleteUser(user)}>
+                  <BsTrash3Fill  />
                 </button>
-                <button className="btn btn-warning me-2">
+                <button className="btn btn-warning me-2 ms-2">
                   <BsPencil onClick={() => selectUser(user)} />
                 </button>
               </td>

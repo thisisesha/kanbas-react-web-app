@@ -49,6 +49,7 @@ export default function Profile() {
           <div className="form-group">
             <input
               className="form-control mb-2"
+              placeholder="Username"
               value={profile.username}
               onChange={(e) =>
                 setProfile({ ...profile, username: e.target.value })
@@ -57,6 +58,7 @@ export default function Profile() {
             <input
               className="form-control mb-2"
               type="password"
+              placeholder="Password"
               value={profile.password}
               onChange={(e) =>
                 setProfile({ ...profile, password: e.target.value })
@@ -65,6 +67,7 @@ export default function Profile() {
             <input
               className="form-control mb-2"
               value={profile.firstName}
+              placeholder="First Name"
               onChange={(e) =>
                 setProfile({ ...profile, firstName: e.target.value })
               }
@@ -72,6 +75,7 @@ export default function Profile() {
             <input
               className="form-control mb-2"
               value={profile.lastName}
+              placeholder="Last Name"
               onChange={(e) =>
                 setProfile({ ...profile, lastName: e.target.value })
               }
@@ -85,6 +89,7 @@ export default function Profile() {
             <input
               className="form-control mb-2"
               value={profile.email}
+              placeholder="Email Id"
               onChange={(e) =>
                 setProfile({ ...profile, email: e.target.value })
               }
